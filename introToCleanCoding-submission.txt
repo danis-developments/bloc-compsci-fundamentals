@@ -1,0 +1,207 @@
+1. In your own words, explain what clean code is and why it is important.
+Clean code is code that is easy to understand and maintain
+
+2. Read this article about Toyota and their use of bad code. Although you may not yet understand all of the topics discussed, think about another commonly used object that relies on computers and explain what would happen if the code was not created to an acceptable standard.
+Artificial Pancreas - If an artificial pancreas had bad code, it could push too much insulin (or not enough) into a diabetic's body, resulting in poor control of the blood glucose level and the health consequences that result from that, including possibly killing them.
+
+3. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+No, this isn't clean code. The function and variable names don't help the reader understand what the code is doing, which means comments are required every line just to help us understand what is happening. Here's my refactored version.
+
+```
+FUNCTION convertTemperature(temperature, scale)               
+  IF scale = "F" THEN               
+    SET convertedTemperature to (temperature−32) * (5/9)     
+    PRINT convertedTemperature                     
+  ELSE IF scale = "C" THEN          
+    SET convertedTemperature to temperature * 1.8000 + 32.00 
+    PRINT convertedTemperature                     
+  END IF
+END FUNCTION
+```
+
+4. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+It's close, but the function name is abbreviated, so I would refactor it just to change the function name.
+
+```
+FUNCTION calculatePercent(sum, total)
+ IF NOT(total = 0) THEN
+     SET percentage to sum / total * 100
+ ELSE
+   PRINT "Sorry, cannot divide by 0"
+ END IF
+
+ PRINT percentage
+```
+
+5. Using pseudocode, refactor the code for the following examples using the principles you have learned in this checkpoint.
+a. The following function prints the subtotal of a customer's transaction and receives payment accordingly.
+
+```
+FUNCTION getTotal(subTotal, discountRate, tax)
+  SET total to subTotal * discountRate + (subTotal * tax)
+  RETURN total
+END FUNCTION
+
+FUNCTION checkOutCustomer(subTotal, discountRate, tax, paymentType)
+  CALL getTotal(subTotal, discountRate, tax) RETURNING total
+  PRINT "Your total due is: " + total
+  CALL getPayment RETURNING amount
+  IF paymentType = 'CASH' THEN
+      CALL getPayment RETURNING amount
+      PRINT "Change due: " + amount - total
+  ELSE IF paymentType = 'CREDIT CARD' THEN
+      CALL getPayment RETURNING amount
+      PRINT "Your credit card has been charged: " + amount
+  END IF
+END FUNCTION
+```
+
+b. The following function checks out a book if there are no issues with the guest's account.
+
+```
+FUNCTION canCheckoutBook(guest)
+  IF guest.accountActive AND NOT(guest.hasOverdueBooks) AND guest.outstandingFees = 0 THEN
+    RETURN true
+  ELSE
+    RETURN false
+  END IF
+END FUNCTION
+
+FUNCTION checkoutBook(book, guest)
+  IF CALL canCheckoutBook(guest) RETURNING true/false
+    APPEND book to guest.books
+    SET book.status to "Checked Out"
+    PRINT "Your books have been issued."
+ ELSE
+     PRINT "Unable to check out book."
+ END IF
+END FUNCTION
+```
+
+c. The following class is a code snippet that should support the transactions a customer can perform at an ATM.
+
+The creditCardOffer and checkStatus functions don't seem to belong in the ATM Class, so I broke them out into a new BankOffers class
+Also, it was unclear to me whether or not we would only be making new account offers to existing customers, so I renamed customer to prospect to account for this.
+```
+CLASS BankOffers
+  FUNCTION creditCardOffer
+      IF NOT(prospect.hasCreditCard) THEN
+          CALL offerCreditCard
+      END
+  END FUNCTION
+
+  FUNCTION checkStatus
+      IF NOT(prospect.hasCheckingAccount) THEN
+          CALL offerCheckingAccount
+      END
+  END FUNCTION
+  ...
+  ...
+  ...
+END CLASS
+
+
+CLASS ATM
+  FUNCTION displayBalance
+    PRINT balance
+  END FUNCTION
+  FUNCTION deposit(amount)
+    SET balance to balance + amount
+  END FUNCTION
+  FUNCTION withdraw(amount)
+      IF balance > amount THEN
+        SET balance to balance - amount
+      END
+  END FUNCTION
+  ....
+  ....
+  ....
+END CLASS
+```
+
+
+PROGRAMMING QUESTIONS
+6. Square Given an array of integers, find out whether the sum of the integers is a perfect square. If it is a perfect square, return the square root, otherwise return the sum.
+
+```javascript
+const add = (firstNumber, secondNumber) => firstNumber + secondNumber;
+function sumIntegerArray(integerArray) {
+  return integerArray.reduce(add);
+}
+
+function isPerfectSquare(integer) {
+  let squareRoot = 1;
+  let square = 1;
+  while (square <= integer) {
+    if (square === integer) return true;
+    squareRoot++;
+    square = squareRoot ** 2;
+  }
+  return false;
+}
+
+function sumOrSquareRootOfSum(integerArray) {
+  const sum = sumIntegerArray(integerArray);
+  if (isPerfectSquare(sum)) {
+    return Math.sqrt(sum);
+  } else {
+    return sum;
+  }
+}
+```
+
+7. Duplicate Given an array of integers, find out whether the array contains any duplicate elements. The function should return true if any value appears at least twice in the array, and false if every element is distinct.
+
+```javascript
+function containsDuplicate(integerArray) {
+  let testArray = [];
+  for (let i = 0; i < integerArray.length; i++) {
+    const currentValue = integerArray[i];
+    if (testArray.includes(currentValue)) {
+      return true;
+    } else {
+      testArray.push(currentValue);
+    }
+  }
+  return false;
+}
+```
+8. Anagram An anagram is a word, phrase, or name formed by rearranging the letters of another word. For example, spar can be formed from rasp. Given two strings, stringOne and stringTwo, determine if stringOne is an anagram of stringTwo. Assume that the strings contain only lowercase letters and do not worry about case-sensitivity. Hint: Your first task will be to convert the strings to arrays.
+
+```javascript
+function stringToAlphaCharacters(text) {
+  return text
+    .match(/[a-z]+/gi)
+    .join("")
+    .split("");
+}
+
+function charactersToSortedString(characterArray) {
+  return characterArray
+    .slice()
+    .sort()
+    .join("");
+}
+
+function isAnagram(stringOne, stringTwo) {
+  if (stringOne === stringTwo) {
+    return false;
+  }
+  const alphaArrayOne = stringToAlphaCharacters(stringOne);
+  const alphaArrayTwo = stringToAlphaCharacters(stringTwo);
+
+  if (alphaArrayOne.length !== alphaArrayTwo.length) {
+    return false;
+  }
+
+  if (
+    charactersToSortedString(alphaArrayOne).toLowerCase() ===
+    charactersToSortedString(alphaArrayTwo).toLowerCase()
+  ) {
+    return true;
+  }
+  
+  return false;
+}
+```
