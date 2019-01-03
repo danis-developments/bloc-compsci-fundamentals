@@ -1,0 +1,59 @@
+I added a bit of markdown syntax here for readability, and I didn't bother with a git repo for this because I didn't feel like it made much sense. This is stored in a pseudocode_answers.txt file, though.
+
+
+Why do programmers use pseudocode?
+It helps programmer's express ideas without referring to a specific language's syntax. 
+This allows multiple programmers with different backgrounds to work out how to solve a problem together.
+
+
+If you run pseudocode on your computer what would happen?
+It wouldn't run. It would throw an error or errors because pseudocode doesn't have the proper syntax for any programming language.
+
+Write the following algorithms in pseudocode:
+
+-Create a function that takes two numbers and prints out the greater number.
+```
+GET 2 numbers
+PRINT the bigger number
+```
+
+alternatively if we wanted to be more procedural/less declarative
+```
+GIVEN firstNumber and secondNumber
+IF firstNumber > secondNumber
+ PRINT firstNumber
+ELSE IF secondNumber > firstNumber
+ PRINT secondNumber
+ELSE 
+ DO NOTHING
+```
+-Create a function that prints out the numbers from 1 to 100.
+```
+FOR the numbers 1 to 100
+  PRINT the current number
+ENDFOR
+```
+-Create a function that searches for a specific entry in a phonebook.
+I am assuming we are looking for the entry's location since we already know the entry's data.
+
+```
+GIVEN a specific phonebook entry we are looking for
+FOR each entry in the phonebook
+  IF the current entry equals the specific phonebook entry we are looking for
+    RETURN the current entry's location
+    EXIT the FOR loop
+  ENDIF
+ENDFOR
+```
+
+Using the pseudocode you wrote for the previous question, implement it in any computer language of your choice.
+
+```javascript
+function getPhonebookEntry(entry, phonebookArr){
+  for(let i=0; i < phonebookArr.length; i++){
+    if(phonebookArr[i] === entry){
+      return i;
+    }
+  }
+}
+```
