@@ -1,0 +1,107 @@
+1. A line of people at an amusement park ride.
+
+- The line is composed of members, represented as strings.
+- There is a front to the line, as well as a back.
+- When someone enters the line, place them at the end.
+- People may leave the line whenever they see fit, and those behind them take their place.
+
+> Given the above real-world information, use an array data structure to code the following solution.
+
+a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+```javascript
+let people = ["Vivian", "Ava", "Josh", "Patrick", "Mike"];
+```
+
+b) Insert a new person, "Mary" at the end of the line. In other words, you should insert Mary after Mike.
+```javascript
+people.push("Mary");
+```
+
+c) Find a person in line named "Josh." This function should return the position of 2 in the array, (recall that arrays are 0-based).
+```javascript
+let joshPosition = people.indexOf("Josh");
+```
+
+d) Find a person in line named "Emily." What should your function return if it does not find the item in the array?
+Array.prototype.indexOf returns -1 when the value isn't found in the array. If we wanted to change the return value, we could make our own function.
+```javascript
+let emilyPosition = people.indexOf("Emily");
+```
+
+e) What if Ava wants to allow a friend, "Melissa", to cut in line in front of her? How would you code this so Melissa appears before Ava?
+```javascript
+people.splice(people.indexOf("Ava"), 0, "Melissa");
+```
+
+f) If Patrick wants to leave the line, how would you delete him from the array?
+```javascript
+people.splice(people.indexOf("Patrick"), 1);
+```
+
+If we wanted to create a function specifically for deleting single elements from an array, we could do this
+```javascript
+function removeElement(arr, element){
+  arr.splice(arr.indexOf(element),1);
+}
+```
+
+or if we wanted to do this without mutating the array, we could do this
+```javascript
+function removeElement(arr, element){
+  return arr.slice().splice(arr.indexOf(element),1);
+}
+```
+
+2. Provide another real-world example that you can model using a data structure.
+
+hospital beds in a hospital, which tells us
+- Is the bed currently empty? (false if patient is currently in room)
+- Patient ID for patient currently assigned to bed (Id instead of name for privacy reasons)
+- Room number the bed is currently located in
+
+```
+beds = [];
+beds[0] = {
+  isEmpty: false,
+  patientId: 123,
+  roomNumber: 1
+}
+
+beds[1] = {
+  isEmpty: true,
+  patienId: null,
+  roomNumber: 1
+}
+
+beds[2] = {
+  isEmpty: true,
+  patientId: 456,
+  roomNumber: 2
+}//patient is currently not in bed, but hasn't checked out 
+
+beds[3] = {
+  isEmpty: true,
+  patientId: null,
+  roomNumber: 3
+}
+```
+
+3. How would your data structure allow developers to access and manipulate the data?
+Developers would access and manipulate the data by standard Array/Object access
+
+For example,
+To return patient `456` to bed following their operation
+```javascript
+beds[2].isEmpty = false;
+```
+
+To free the bed following patient `456` checking out
+```javascript
+beds[2].isEmpty = true;
+beds[2].patientId = null;
+```
+
+and so on.
+
+I think this would be better represented as an array of instances of a Bed class with a constructor, getters and setters.
+
