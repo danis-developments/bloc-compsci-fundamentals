@@ -1,0 +1,67 @@
+What is the main difference between a stack and a queue?
+Stacks are last-in-first-out, while Queues are first-in-first-out
+
+What are the similarities between stacks and queues?
+They are both lists of data elements designed to hold those elements temporarily while they are waiting to be accessed
+
+Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft Word. Which data structure would you use for each option and why?
+For UNDO I would use a stack, because when I'm undoing, I want to remove the most recently performed action (last in first out) and put it on the REDO stack.
+For REDO, I would also use a stack, because as I repeat UNDO, I build a list of undone actions, and when I want to REDO, I want to REDO the most recently UNDOne action, so again we have first in last out.
+
+
+Programming Questions
+You may program the following question in any language of your choice. Before you begin coding, write out a plan as to how you will solve the question.
+
+1. Given a string, reverse it using a stack. For example, the string "Bloc!" should be converted to "!colB".
+```javascript
+function reverseString(string) {
+  let stringArray = [];
+  for (let i = 0; i < string.length; i++) {
+    stringArray.push(string[i]);
+  }
+  let reversedString = "";
+  while (stringArray.length > 0) {
+    reversedString = reversedString + stringArray.pop();
+  }
+  return reversedString;
+}
+```
+
+2. Implement the pop method of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure. Since the internal list is not the same as defined in the checkpoint, it may help to rewrite the pseudocode first.
+```javascript
+function popFromQueue(queue) {
+  const shiftsNeeded = queue.length - 1;
+  for (let i = 0; i < shiftsNeeded; i++) {
+    queue.push(queue.shift());
+  }
+  return queue.shift();
+}
+```
+
+1. Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
+I would prefer to have implemented the dequeue function without `firstVal`, but storing the value temporarily was specified
+```javascript
+class Queue {
+  constructor(arr = []) {
+    this.queue = arr;
+  }
+
+  get value() {
+    return this.queue;
+  }
+
+  set value(queue) {
+    this.queue = queue;
+  }
+
+  enqueue(val) {
+    this.queue.push(val);
+    return null;
+  }
+
+  dequeue() {
+    const firstValue = this.queue.shift();
+    return firstValue;
+  }
+}
+```
