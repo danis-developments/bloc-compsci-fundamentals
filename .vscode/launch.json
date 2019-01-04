@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/stacks_and_queues.js"
+      "program": "${workspaceFolder}/linked_lists.js"
     }
   ]
 }

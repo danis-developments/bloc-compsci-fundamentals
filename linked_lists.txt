@@ -1,0 +1,174 @@
+1. What are some pros and cons of using linked lists instead of arrays?
+Pros
+* Linked lists never contain empty placeholders
+* creating each new node of a linked list costs the same as every other node, whereas allocating new space for an array may be a very expensive operation
+
+Cons
+* Linked lists must be searched sequentially from the beginning when looking for a value
+* each node must be created independently from each other node
+* Probably minor, but if an array is contiguously stored and all elements are full, a linked list containing the same data as the array would require more memory
+
+Come up with a real world example of a linked list.
+* A scavenger hunt, where each clue reveals the location of the next clue
+
+
+
+Programming Questions
+You may program the following questions in any language of your choice (JavaScript, Ruby, etc.).
+
+Before beginning to code, write out a plan explaining how to solve the question.
+
+The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode for a push function for a singly linked list. However, there is something wrong with it. Submit both an explanation of the bug and a functional implementation of the method.
+```
+FUNCTION push(element)
+  CREATE node
+  SET node.value TO element
+  SET node.next TO null
+
+  IF the head node does not exist
+    THEN SET head to node
+  ELSE
+    SET current to head <----NOPE
+    SET current.next to node <--- also nope
+  END IF
+END FUNCTION
+```
+We shouldn't reset the head in the ELSE block. Instead, set `current.next` to node IF current exists, and then we set `current` to `node`
+Here's the corrected version
+
+```
+FUNCTION push(element)
+  CREATE node
+  SET node.value TO element
+  SET node.next TO null
+
+  IF the head node does not exist
+    THEN SET head to node
+  ELSE
+    IF the current node exists
+      SET current.next to node
+    END IF
+    SET current to node
+  END IF
+END FUNCTION
+```
+
+and in JavaScript
+```javascript
+class LinkedList {
+  constructor() {
+    this.start = null;
+    this.end = null;
+  }
+
+  createNode() {
+    return { value: null, next: null };
+  }
+
+  push(nodeVal) {
+    let newNode = this.createNode();
+    if (this.start === null) {
+      this.start = newNode;
+    }
+    newNode.value = nodeVal;
+
+    if (this.end !== null) {
+      this.end.next = newNode;
+    }
+    this.end = newNode;
+  }
+}
+```
+
+2. Given an unsorted singly linked list, remove all duplicates from the linked list.
+
+pseudocode
+```
+FUNCTION removeDuplicates(linkedList)
+  CREATE valuesArray 
+  SET currentNode to linkedList head
+  SET lastNode to null
+  WHILE currentNode IS NOT null
+    IF currentNode's value IS in valuesArray
+      SET lastNode's next to currentNode's next
+      IF currentNode is the end of linkedList
+        SET the end of linkedList to lastNode
+      END IF
+    ELSE
+      APPEND currentNode's value TO valuesArray
+    END IF
+    SET lastNode = currentNode
+    SET currentNode to the next node
+  END WHILE
+END FUNCTION
+```
+
+```javascript
+function removeDuplicates(linkedList) {
+  let valuesArray = [];
+  let currentNode = linkedList.start;
+  let lastNode = null;
+  while (currentNode !== null) {
+    if (valuesArray.includes(currentNode.value)) {
+      lastNode.next = currentNode.next;
+      if (currentNode === linkedList.end) {
+        linkedList.end = lastNode;
+      }
+    } else {
+      valuesArray.push(currentNode.value);
+    }
+    lastNode = currentNode;
+    currentNode = currentNode.next;
+  }
+}
+```
+
+3. Given an unsorted singly linked list, reverse it.
+
+pseudocode
+```
+FUNCTION reverseList(linkedList)
+  SET newStart to the linkedList's end
+  IF newStart is null
+    EXIT FUNCTION
+  END IF
+
+  SET currentNode to newStart
+  WHILE currentNode isn't linkedList's start
+    CALL findPreviousNode(linkedList, currentNode) RETURNING previousNode
+    SET currentNode's next node to previousNode
+    SET currentNode to previousNode
+  END WHILE
+  SET currentNode's next to null
+  SET linkedList's end to currentNode
+  SET linkedList's start to newStart
+END FUNCTION
+```
+
+in JavaScript
+```javascript
+function findPreviousNode(linkedList, node) {
+  // debugger;
+  let currentNode = linkedList.start;
+  while (currentNode.next !== node) {
+    currentNode = currentNode.next;
+  }
+  return currentNode;
+}
+
+function reverseList(linkedList) {
+  let newStart = linkedList.end;
+  if (newStart === null) return null;
+
+  let currentNode = newStart;
+  while (currentNode !== linkedList.start) {
+    const previousNode = findPreviousNode(linkedList, currentNode);
+    currentNode.next = previousNode;
+    currentNode = previousNode;
+  }
+  currentNode.next = null;
+  linkedList.end = currentNode;
+  linkedList.start = newStart;
+}
+```
+

@@ -40,6 +40,7 @@ function popFromQueue(queue) {
 
 1. Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
 I would prefer to have implemented the dequeue function without `firstVal`, but storing the value temporarily was specified
+
 ```javascript
 class Queue {
   constructor(arr = []) {
