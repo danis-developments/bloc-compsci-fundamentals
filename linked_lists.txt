@@ -1,4 +1,5 @@
 1. What are some pros and cons of using linked lists instead of arrays?
+
 Pros
 * Linked lists never contain empty placeholders
 * creating each new node of a linked list costs the same as every other node, whereas allocating new space for an array may be a very expensive operation
@@ -18,7 +19,8 @@ You may program the following questions in any language of your choice (JavaScri
 
 Before beginning to code, write out a plan explaining how to solve the question.
 
-The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode for a push function for a singly linked list. However, there is something wrong with it. Submit both an explanation of the bug and a functional implementation of the method.
+> 1. The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode for a push function for a singly linked list. However, there is something wrong with it. Submit both an explanation of the bug and a functional implementation of the method.
+
 ```
 FUNCTION push(element)
   CREATE node
@@ -33,7 +35,8 @@ FUNCTION push(element)
   END IF
 END FUNCTION
 ```
-We shouldn't reset the head in the ELSE block. Instead, set `current.next` to node IF current exists, and then we set `current` to `node`
+
+We shouldn't reset the head in the ELSE block. Instead, set `current.next` to node IF `current` exists, and then we set `current` to `node`
 Here's the corrected version
 
 ```
@@ -54,6 +57,7 @@ END FUNCTION
 ```
 
 and in JavaScript
+
 ```javascript
 class LinkedList {
   constructor() {
@@ -80,7 +84,7 @@ class LinkedList {
 }
 ```
 
-2. Given an unsorted singly linked list, remove all duplicates from the linked list.
+> 2. Given an unsorted singly linked list, remove all duplicates from the linked list.
 
 pseudocode
 ```
@@ -103,6 +107,8 @@ FUNCTION removeDuplicates(linkedList)
 END FUNCTION
 ```
 
+in JavaScript
+
 ```javascript
 function removeDuplicates(linkedList) {
   let valuesArray = [];
@@ -123,7 +129,7 @@ function removeDuplicates(linkedList) {
 }
 ```
 
-3. Given an unsorted singly linked list, reverse it.
+> 3. Given an unsorted singly linked list, reverse it.
 
 pseudocode
 ```
