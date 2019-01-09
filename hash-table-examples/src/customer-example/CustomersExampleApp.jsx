@@ -5,7 +5,7 @@ import getCustomers from "./data/customers";
 import HashTable from "./modules/HashTable";
 import FindCustomerForm from "./components/FindCustomerForm";
 
-class App extends Component {
+class CustomersExampleApp extends Component {
   state = {
     customers: new HashTable(20),
     hideCustomerList: true
@@ -43,4 +43,4 @@ class App extends Component {
   };
 }
 
-export default App;
+export default CustomersExampleApp;
