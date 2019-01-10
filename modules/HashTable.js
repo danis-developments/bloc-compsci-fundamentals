@@ -61,9 +61,9 @@ class HashTable {
       key = String(key);
     }
     let hashCode = 0;
-    const numericPortion = key.match(/[0-9]+/g).join("");
+    const numericPortion = key.match(/[0-9]+/g);
     if (numericPortion) {
-      hashCode = parseInt(numericPortion);
+      hashCode = parseInt(numericPortion.join(""));
     } else {
       for (let i = 0; i < key.length; i++) {
         hashCode += key.charCodeAt(i);
@@ -77,11 +77,11 @@ class HashTable {
     if (!this.data[index]) {
       return null;
     }
-    if (this.data[index].length === 1) {
-      return this.data[index][0].value;
-    } else {
-      return this.data[index][this.getBucketIndex(index, key)].value;
+    const bucketIndex = this.getBucketIndex(index, key);
+    if (bucketIndex !== undefined) {
+      return this.data[index][bucketIndex].value;
     }
+    return null;
   }
 
   remove(key) {

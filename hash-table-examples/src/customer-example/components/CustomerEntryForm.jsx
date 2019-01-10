@@ -67,8 +67,6 @@ class CustomerEntryForm extends Component {
       address: this.state.address
     };
 
-    console.log(this.state.phone);
-    console.log(customer.phone);
     if (customer.phone) {
       this.props.addCustomer(customer);
     } else {

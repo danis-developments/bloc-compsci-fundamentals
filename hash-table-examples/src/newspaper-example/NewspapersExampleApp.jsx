@@ -7,7 +7,7 @@ import FindNewspaperForm from "./components/FindNewspaperForm";
 
 class NewspapersExampleApp extends Component {
   state = {
-    newspapers: new HashTable(20),
+    newspapers: new HashTable(1),
     hideNewspapersList: true
   };
 
@@ -15,7 +15,7 @@ class NewspapersExampleApp extends Component {
     const rawNewspapers = getNewspapers();
     let newspapersHash = new HashTable(rawNewspapers.length * 2);
     rawNewspapers.map(newspaper =>
-      newspapersHash.add(newspaper._id, newspaper)
+      newspapersHash.add(newspaper.publisher + newspaper.date, newspaper)
     );
     this.setState({ newspapers: newspapersHash });
   }
@@ -36,7 +36,7 @@ class NewspapersExampleApp extends Component {
 
   addNewspaper = newspaper => {
     let newNewspaperHash = this.state.newspapers.clone();
-    newNewspaperHash.add(newspaper._id, newspaper);
+    newNewspaperHash.add(newspaper.publisher + newspaper.date, newspaper);
     this.setState({ newspapers: newNewspaperHash });
   };
 

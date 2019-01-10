@@ -24,7 +24,7 @@ class NewspaperList extends Component {
         <tr key={index}>
           <td>{newspaper.publisher}</td>
           <td>{newspaper.date}</td>
-          <td>{abstract}</td>
+          <td>{abstract}[...]</td>
         </tr>
       );
     });

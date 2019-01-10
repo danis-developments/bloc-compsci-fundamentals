@@ -5,7 +5,7 @@ class FindNewspaperForm extends Component {
     newspaperFound: "No Newspaper Selected",
     newspaperData: null,
     publisher: "",
-    publicationDate: null
+    date: Date.now()
   };
 
   render() {
@@ -51,19 +51,26 @@ class FindNewspaperForm extends Component {
   }
 
   handleFind = e => {
-    /*    e.preventDefault();
-    const formattedPhoneNumber = formatPhoneNumber(this.state.phone);
-    const newspaper = this.props.newspapers.lookup(formattedPhoneNumber);
+    e.preventDefault();
+    const newspaper = this.props.newspapers.lookup(
+      this.state.publisher + this.state.date
+    );
     if (!newspaper) {
       this.setState({
-        newspaperFound: "Newspaper " + formattedPhoneNumber + " Not Found"
+        newspaperFound:
+          "Newspaper " +
+          this.state.publisher +
+          " from date " +
+          this.state.date +
+          " Not Found",
+        newspaperData: null
+      });
+    } else {
+      this.setState({
+        newspaperFound: "Newspaper Found!",
+        newspaperData: newspaper
       });
     }
-
-    this.setState({
-      newspaperData: newspaper,
-      phone: formatPhoneNumber(this.state.phone)
-    });*/
   };
 
   handlePublisherChange = e => {
@@ -80,16 +87,15 @@ class FindNewspaperForm extends Component {
       return (
         <div>
           <p>{this.state.newspaperFound}</p>
-          <p />
-          <p />
         </div>
       );
     }
     return (
       <div>
-        <p>{this.state.newspaperData.name}</p>
-        <p>{this.state.newspaperData.phone}</p>
-        <p>{this.state.newspaperData.address}</p>
+        <p>{this.state.newspaperFound}</p>
+        <p>Publisher: {this.state.newspaperData.publisher}</p>
+        <p>Publication Data: {this.state.newspaperData.date}</p>
+        <p>{this.state.newspaperData.content.slice(0, 250)}[...]</p>
       </div>
     );
   };

@@ -2,48 +2,47 @@ import React, { Component } from "react";
 
 class CustomerEntryForm extends Component {
   state = {
-    name: "",
-    phone: "",
-    address: ""
+    publisher: "",
+    date: Date.now(),
+    content: ""
   };
 
   render() {
     return (
       <form>
         <fieldset>
-          <legend>Create New Customer</legend>
+          <legend>Enter Newspaper Data</legend>
           <div className="form-group">
-            <label htmlFor="customerName">Customer Name</label>
+            <label htmlFor="publisher">Publisher</label>
             <input
               type="text"
               className="form-control"
-              id="customerName"
-              placeholder="Enter full name"
-              value={this.state.name}
-              onChange={this.handleNameChange}
+              id="publisher"
+              placeholder="Enter publisher"
+              value={this.state.publisher}
+              onChange={this.handlePublisherChange}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="phoneNumber">Phone Number</label>
+            <label htmlFor="publicationDate">Publication Date</label>
             <input
-              type="phone"
+              type="date"
               className="form-control"
-              id="phoneNumber"
-              placeholder="(123)456-7890"
-              value={this.state.phone}
-              onChange={this.handlePhoneChange}
+              id="publicationDate"
+              value={this.state.date}
+              onChange={this.handleDateChange}
             />
           </div>
           <div className="form-group">
-            <label className="form-check-label" htmlFor="address">
-              Address
+            <label className="form-check-label" htmlFor="content">
+              Content
             </label>
             <input
               type="textarea"
               className="form-control"
-              id="address"
-              value={this.state.address}
-              onChange={this.handleAddressChange}
+              id="content"
+              value={this.state.content}
+              onChange={this.handleContentChange}
             />
           </div>
           <button
@@ -59,32 +58,30 @@ class CustomerEntryForm extends Component {
   }
 
   handleSubmit = e => {
-    /*   e.preventDefault();
-    const customer = {
-      name: this.state.name,
-      phone: formatPhoneNumber(this.state.phone),
-      address: this.state.address
+    e.preventDefault();
+    const newspaper = {
+      publisher: this.state.publisher,
+      date: this.state.date,
+      content: this.state.content
     };
 
-    console.log(this.state.phone);
-    console.log(customer.phone);
-    if (customer.phone) {
-      this.props.addCustomer(customer);
+    if (newspaper.publisher) {
+      this.props.addNewspaper(newspaper);
     } else {
-      alert("invalid phone number");
-    }*/
+      alert("Must have a publisher!");
+    }
   };
 
-  handleAddressChange = e => {
-    this.setState({ address: e.target.value });
+  handleContentChange = e => {
+    this.setState({ content: e.target.value });
   };
 
-  handleNameChange = e => {
-    this.setState({ name: e.target.value });
+  handleDateChange = e => {
+    this.setState({ date: e.target.value });
   };
 
-  handlePhoneChange = e => {
-    this.setState({ phone: e.target.value });
+  handlePublisherChange = e => {
+    this.setState({ publisher: e.target.value });
   };
 }
 
