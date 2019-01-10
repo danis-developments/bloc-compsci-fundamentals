@@ -9,7 +9,6 @@ class FindCustomerForm extends Component {
   };
 
   render() {
-    console.log(this.state.phone);
     return (
       <div>
         <form>

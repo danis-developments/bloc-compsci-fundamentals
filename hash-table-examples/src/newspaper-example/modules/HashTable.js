@@ -61,9 +61,9 @@ class HashTable {
       key = String(key);
     }
     let hashCode = 0;
-    const numericPortion = key.match(/[0-9]+/g);
-    if (numericPortion !== [] && numericPortion !== null) {
-      hashCode = parseInt(numericPortion.join(""));
+    const numericPortion = key.match(/[0-9]+/g).join("");
+    if (numericPortion) {
+      hashCode = parseInt(numericPortion);
     } else {
       for (let i = 0; i < key.length; i++) {
         hashCode += key.charCodeAt(i);

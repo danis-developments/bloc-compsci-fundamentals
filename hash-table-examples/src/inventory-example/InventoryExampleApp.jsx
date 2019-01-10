@@ -6,7 +6,8 @@ import HashTable from "./modules/HashTable";
 
 class InventoryExampleApp extends Component {
   state = {
-    inventory: new HashTable(10)
+    inventory: new HashTable(10),
+    updateList: false
   };
 
   componentDidMount() {
@@ -19,10 +20,16 @@ class InventoryExampleApp extends Component {
   render() {
     return (
       <div className="App container">
-        <ItemEntryForm addItem={this.addItem} />
+        <ItemEntryForm
+          updateList={this.state.updateList}
+          setUpdateList={this.setUpdateList}
+          addItem={this.addItem}
+        />
         <InventoryList
           updateItem={this.updateItem}
           inventory={this.state.inventory}
+          setUpdateList={this.setUpdateList}
+          updateList={this.state.updateList}
         />
       </div>
     );
@@ -31,7 +38,7 @@ class InventoryExampleApp extends Component {
   addItem = item => {
     let newItemHash = this.state.inventory.clone();
     newItemHash.add(item.itemName, item);
-    this.setState({ inventory: newItemHash });
+    this.setState({ inventory: newItemHash, updateList: true });
   };
 
   updateItem = item => {
@@ -41,6 +48,10 @@ class InventoryExampleApp extends Component {
       this.setState({ inventory: newItemHash });
     }
     return updateSuccessful;
+  };
+
+  setUpdateList = bool => {
+    this.setState({ updateList: bool });
   };
 }
 

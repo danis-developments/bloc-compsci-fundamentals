@@ -11,7 +11,7 @@ class Item extends Component {
 
   render() {
     return (
-      <tr key={this.props.index}>
+      <tr>
         <td>{this.props.item.itemName}</td>
         <td />
         {this.renderQuantity()}
@@ -96,7 +96,6 @@ class Item extends Component {
   };
 
   cancelItemChanges = e => {
-    e.preventDefault();
     this.setState({
       item: { quantity: this.props.item.quantity, price: this.props.item.price }
     });

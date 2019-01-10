@@ -7,13 +7,13 @@ import FindCustomerForm from "./components/FindCustomerForm";
 
 class CustomersExampleApp extends Component {
   state = {
-    customers: new HashTable(20),
+    customers: new HashTable(1),
     hideCustomerList: true
   };
 
   componentDidMount() {
     const rawCustomers = getCustomers();
-    let customersHash = new HashTable(this.state.customers.size);
+    let customersHash = new HashTable(rawCustomers.length * 2);
     rawCustomers.map(customer => customersHash.add(customer.phone, customer));
     this.setState({ customers: customersHash });
   }

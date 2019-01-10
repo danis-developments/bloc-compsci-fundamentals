@@ -12,6 +12,7 @@ class InventoryList extends Component {
       const item = this.props.inventory.lookup(hashKey);
       return (
         <Item
+          key={item.itemName}
           updateItem={this.props.updateItem}
           item={item}
           index={index}
